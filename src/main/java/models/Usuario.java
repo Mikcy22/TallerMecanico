@@ -11,8 +11,7 @@ public class Usuario {
     private String username;
     @Column(name = "password")
     private String password;
-    @OneToOne
-    @PrimaryKeyJoinColumn
+    @OneToOne(cascade = CascadeType.ALL,mappedBy = "usuario")
     private Empleado empleado;
 
     public Usuario() {

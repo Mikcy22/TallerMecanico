@@ -15,12 +15,25 @@ public class Cliente {
     private String email;
     @Column(name = "telefono")
     private String telefono;
-    @OneToMany(cascade = CascadeType.ALL,mappedBy = "cliente")
+    @OneToMany(mappedBy = "cliente",cascade = CascadeType.ALL)
     private List<Venta> ventas;
-    @ManyToMany(cascade = CascadeType.ALL,mappedBy = "clientes")
+    @ManyToMany
+    @JoinTable(
+            name = "Cliente_Coche",
+            joinColumns = {@JoinColumn(name = "cliente_id")},
+            inverseJoinColumns = {@JoinColumn(name = "coche_id")}
+    )
     private List<Coche> coches;
 
     public Cliente() {
+    }
+
+    public Cliente(String nombre, String email, String telefono, List<Venta> ventas, List<Coche> coches) {
+        this.nombre = nombre;
+        this.email = email;
+        this.telefono = telefono;
+        this.ventas = ventas;
+        this.coches = coches;
     }
 
     public Cliente(int id, String nombre, String email, String telefono) {
@@ -41,6 +54,15 @@ public class Cliente {
         this.nombre = nombre;
         this.email = email;
         this.telefono = telefono;
+    }
+
+    public Cliente(int id, String nombre, String email, String telefono, List<Venta> ventas, List<Coche> coches) {
+        this.id = id;
+        this.nombre = nombre;
+        this.email = email;
+        this.telefono = telefono;
+        this.ventas = ventas;
+        this.coches = coches;
     }
 
     public int getId() {

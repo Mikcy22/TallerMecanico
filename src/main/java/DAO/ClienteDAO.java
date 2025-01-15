@@ -55,11 +55,19 @@ public class ClienteDAO {
         }
     }
 
-    public void delete(Cliente cliente) {
+    public void delete(int clienteId) {
         Transaction transaction = null;
         try (Session session = HibernateUtil.getSession()) {
             transaction = session.beginTransaction();
-            session.delete(cliente);
+            // Buscar el cliente por su ID
+            Cliente cliente = session.get(Cliente.class, clienteId);
+            if (cliente != null) {
+                // Eliminar el cliente si existe
+                session.delete(cliente);
+                System.out.println("Cliente eliminado: " + cliente.getId());
+            } else {
+                System.out.println("Cliente no encontrado con ID: " + clienteId);
+            }
             transaction.commit();
         } catch (Exception e) {
             if (transaction != null) {
@@ -68,4 +76,5 @@ public class ClienteDAO {
             e.printStackTrace();
         }
     }
+
 }

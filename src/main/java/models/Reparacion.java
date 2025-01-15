@@ -21,6 +21,9 @@ public class Reparacion {
     @JoinColumn(name = "empleado_id")
     private Empleado empleado;
 
+    public Reparacion() {
+    }
+
     public Reparacion(String descripcion, Date fecha, double costo, Coche coche, Empleado empleado) {
         this.descripcion = descripcion;
         this.fecha = fecha;
@@ -75,5 +78,15 @@ public class Reparacion {
 
     public void setEmpleado(Empleado empleado) {
         this.empleado = empleado;
+    }
+
+    @Override
+    public String toString() {
+        return "Reparacion{" +
+                "id=" + id +
+                ", descripcion='" + descripcion + '\'' +
+                ", fecha=" + fecha +
+                ", costo=" + costo +
+                '}';
     }
 }

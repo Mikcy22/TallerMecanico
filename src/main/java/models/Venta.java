@@ -19,8 +19,16 @@ public class Venta{
     @ManyToOne
     @JoinColumn(name = "cliente_id")
     private Cliente cliente;
-    @ManyToMany(cascade = CascadeType.ALL,mappedBy = "ventas")
+    @ManyToMany
+    @JoinTable(
+            name = "Venta_Coche",
+            joinColumns = {@JoinColumn(name = "venta_id")},
+            inverseJoinColumns = {@JoinColumn(name = "coche_id")}
+    )
     private List<Coche> coches;
+
+    public Venta() {
+    }
 
     public Venta(Date fecha, double monto, Empleado empleado, Cliente cliente, List<Coche> coches) {
         this.fecha = fecha;

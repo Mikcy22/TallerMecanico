@@ -19,19 +19,9 @@ public class Coche {
     private double precio;
     @OneToMany(mappedBy = "coche", cascade = CascadeType.ALL)
     private List<Reparacion> reparaciones;
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(
-            name = "Venta_Coche",
-            joinColumns = {@JoinColumn(name = "coche_id")},
-            inverseJoinColumns = {@JoinColumn(name = "venta_id")}
-    )
+    @ManyToMany(mappedBy = "coches",cascade = CascadeType.ALL)
     private List<Venta> ventas;
-    @ManyToMany(cascade = CascadeType.ALL)
-   @JoinTable(
-           name = "Cliente_Coche",
-           joinColumns = {@JoinColumn(name = "coche_id")},
-           inverseJoinColumns = {@JoinColumn(name = "cliente_id")}
-   )
+    @ManyToMany(mappedBy = "coches")
     private List<Cliente> clientes;
 
     public Coche() {
@@ -129,11 +119,14 @@ public class Coche {
     @Override
     public String toString() {
         return "Coche{" +
-                "precio=" + precio +
-                ", año=" + año +
-                ", modelo='" + modelo + '\'' +
+                "id=" + id +
                 ", marca='" + marca + '\'' +
-                ", id=" + id +
+                ", modelo='" + modelo + '\'' +
+                ", año=" + año +
+                ", precio=" + precio +
+                ", reparaciones=" + reparaciones +
+                ", ventas=" + ventas +
+                ", clientes=" + clientes +
                 '}';
     }
 }

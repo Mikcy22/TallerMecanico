@@ -14,10 +14,10 @@ public class Empleado {
     private String puesto;
     @Column(name = "salario")
     private double salario;
-    @OneToOne
-    @PrimaryKeyJoinColumn
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "usuario_id")
     private Usuario usuario;
-    @OneToMany(mappedBy = "empleado",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "empleado",cascade = CascadeType.MERGE)
     private List<Reparacion> reparaciones;
 
     public Empleado() {
@@ -91,5 +91,17 @@ public class Empleado {
 
     public void setReparaciones(List<Reparacion> reparaciones) {
         this.reparaciones = reparaciones;
+    }
+
+    @Override
+    public String toString() {
+        return "Empleado{" +
+                "id=" + id +
+                ", nombre='" + nombre + '\'' +
+                ", puesto='" + puesto + '\'' +
+                ", salario=" + salario +
+                ", usuario=" + usuario +
+                ", reparaciones=" + reparaciones +
+                '}';
     }
 }
